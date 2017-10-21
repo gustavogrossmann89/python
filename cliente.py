@@ -18,21 +18,36 @@ mathopreq = struct.Struct('I i I i f')
 mathopreply = struct.Struct('I i I f I')
 
 HOST = '' # all interfaces
-UDP_PORT = 3000
-UDP_IP = "127.0.0.1"
+
+#IPV6 - Bourder Router
+#UDP_PORT = 8802
+#UDP_IP = "2804:7f4:3b80:9440:5748:f6e0:f733:4c6b"
+
+#CLIENTE PRATICA SNIFFER COM PORTA ERRADA
+UDP_PORT = 8802
+UDP_IP = "fe80::212:4b00:f28:c303"
+
+#IPV4 LOCAL
+#UDP_PORT = 3000
+#UDP_IP = "127.0.0.1"
 
 #MESSAGE = struct.pack('>BB',LED_STATE,1)
-#MESSAGE = struct.pack('>BB',LED_TOGGLE_REQUEST,1)
+MESSAGE = struct.pack('>B',LED_TOGGLE_REQUEST)
 
-values = (OP_REQUEST, 5, OP_MULTIPLY, 4, 1)
-MESSAGE = mathopreq.pack(*values)
+#values = (OP_REQUEST, 5, OP_MULTIPLY, 4, 1)
+#MESSAGE = mathopreq.pack(*values)
 
 print "UDP target IP: ", UDP_IP
 print "UDP target port: ", UDP_PORT
 print 'Packed Value   :', binascii.hexlify(MESSAGE)
 
 #socket.SOCK_DGRAM = UDP connection
-sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+#PACOTES IPV4
+#sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+#PACOTES IPV6
+sock = socket.socket(socket.AF_INET6,socket.SOCK_DGRAM)
+
 sock.bind((HOST,3001))
 sock.sendto(MESSAGE,(UDP_IP,UDP_PORT))
 

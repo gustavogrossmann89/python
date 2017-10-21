@@ -30,7 +30,7 @@ while True:
     dados = struct.unpack_from(">B",data,0)
     if dados[0] == LED_STATE:
         print "Recebeu LED_STATE"
-        print unpacked_data[1]
+        print dados[1]
         pass
     elif dados[0] == LED_GET_STATE:
         print "Recebeu LED_GET_STATE"
